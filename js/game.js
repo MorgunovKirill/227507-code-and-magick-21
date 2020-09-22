@@ -1,5 +1,4 @@
 'use strict';
-
 window.GameConstants = {
   Fireball: {
     size: fireballSize || 24,
