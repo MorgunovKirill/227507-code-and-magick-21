@@ -6,6 +6,35 @@ const WIZARD_COATS = [`rgb (101, 137, 164)`, `rgb(241, 43, 107)`, `rgb(146, 100,
 const WIZARD_EYES = [`black`, `red`, `blue`, `yellow`, `green`];
 const WIZARD_QUANTITY = 4;
 
+const setupOpen = document.querySelector(`.setup-open`);
+const setup = document.querySelector(`.setup`);
+const setupClose = setup.querySelector(`.setup-close`);
+
+const similarListElement = document.querySelector(`.setup-similar-list`);
+const similarWizardTemplate = document.querySelector(`#similar-wizard-template`)
+  .content
+  .querySelector(`.setup-similar-item`);
+
+const onPopupEscPress = function (evt) {
+  if (evt.key === `Escape`) {
+    evt.preventDefault();
+    closePopup();
+  }
+};
+
+const openPopup = function () {
+  setup.classList.remove(`hidden`);
+
+  document.addEventListener(`keydown`, onPopupEscPress);
+};
+
+const closePopup = function () {
+  setup.classList.add(`hidden`);
+
+  document.removeEventListener(`keydown`, onPopupEscPress);
+};
+
+
 const getRandomInteger = (min, max) => {
   let rand = min + Math.random() * (max + 1 - min);
   return Math.floor(rand);
@@ -49,13 +78,26 @@ for (let i = 0; i < WIZARD_QUANTITY; i++) {
   wizards.push(generateWisard(WIZARD_NAMES, WIZARD_SURNAMES, WIZARD_COATS, WIZARD_EYES));
 }
 
-const setupWindow = document.querySelector(`.setup`);
-setupWindow.classList.remove(`hidden`);
 
-const similarListElement = document.querySelector(`.setup-similar-list`);
-const similarWizardTemplate = document.querySelector(`#similar-wizard-template`)
-    .content
-    .querySelector(`.setup-similar-item`);
+setupOpen.addEventListener(`click`, function () {
+  openPopup();
+});
+
+setupOpen.addEventListener(`keydown`, function (evt) {
+  if (evt.key === `Enter`) {
+    openPopup();
+  }
+});
+
+setupClose.addEventListener(`click`, function () {
+  closePopup();
+});
+
+setupClose.addEventListener(`keydown`, function (evt) {
+  if (evt.key === `Enter`) {
+    closePopup();
+  }
+});
 
 renderFragment(wizards, similarListElement);
 
