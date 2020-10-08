@@ -31,16 +31,24 @@ const onPopupEscPress = function (evt) {
   }
 };
 
+const onPopupEnterPress = function (evt) {
+  if (evt.key === `Enter`) {
+    evt.preventDefault();
+  }
+};
+
 const openPopup = function () {
   setup.classList.remove(`hidden`);
 
   document.addEventListener(`keydown`, onPopupEscPress);
+  setupName.addEventListener(`keydown`, onPopupEnterPress);
 };
 
 const closePopup = function () {
   setup.classList.add(`hidden`);
 
   document.removeEventListener(`keydown`, onPopupEscPress);
+  setupName.removeEventListener(`keydown`, onPopupEnterPress);
 };
 
 
