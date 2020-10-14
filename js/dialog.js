@@ -7,11 +7,7 @@
   const setupName = setupDialogElement.querySelector(`.setup-user-name`);
 
   const dialogHandle = setupDialogElement.querySelector(`.upload`);
-
-  const initialCoords = {
-    x: window.getComputedStyle(setupDialogElement).getPropertyValue(`left`),
-    y: window.getComputedStyle(setupDialogElement).getPropertyValue(`top`)
-  };
+  let initialCoords;
 
   const onPopupEscPress = function (evt) {
     if (document.activeElement !== setupName) {
@@ -27,6 +23,13 @@
   const openPopup = function () {
     setupDialogElement.classList.remove(`hidden`);
 
+    if (!initialCoords) {
+      initialCoords = {
+        x: setupDialogElement.style.left,
+        y: setupDialogElement.style.top,
+      };
+    }
+
     setupDialogElement.style.left = initialCoords.x;
     setupDialogElement.style.top = initialCoords.y;
 
@@ -41,10 +44,6 @@
     setupName.removeEventListener(`keydown`, onPopupEnterPress);
   };
 
-  // setupOpen.addEventListener(`click`, function () {
-  //   openPopup();
-  // });
-
   setupOpen.addEventListener(`click`, openPopup);
 
   setupOpen.addEventListener(`keydown`, function (evt) {
@@ -52,10 +51,6 @@
       openPopup();
     }
   });
-
-  // setupClose.addEventListener(`click`, function () {
-  //   closePopup();
-  // });
 
   setupClose.addEventListener(`click`, closePopup);
 
