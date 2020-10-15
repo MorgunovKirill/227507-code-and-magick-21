@@ -7,6 +7,7 @@
   const setupName = setupDialogElement.querySelector(`.setup-user-name`);
 
   const dialogHandle = setupDialogElement.querySelector(`.upload`);
+  const form = setupDialogElement.querySelector(`.setup-wizard-form`);
   let initialCoords;
 
   const onPopupEscPress = function (evt) {
@@ -106,6 +107,14 @@
 
     document.addEventListener(`mousemove`, onMouseMove);
     document.addEventListener(`mouseup`, onMouseUp);
+  });
+
+
+  form.addEventListener(`submit`, function (evt) {
+    window.save(new FormData(form), function (response) {
+      setupDialogElement.classList.add(`hidden`);
+    });
+    evt.preventDefault();
   });
 
 })();
