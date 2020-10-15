@@ -3,7 +3,6 @@
 (function () {
   const ESC_KEYCODE = 27;
   const ENTER_KEYCODE = 13;
-  const setup = document.querySelector(`.setup`);
 
   const isEscEvent = (evt, action) => {
     if (evt.keyCode === ESC_KEYCODE) {
@@ -45,7 +44,6 @@
     getRandomInteger,
     getRandomItem,
     colorize,
-    setup,
   };
 })();
 
