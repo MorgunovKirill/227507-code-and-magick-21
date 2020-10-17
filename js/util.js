@@ -38,12 +38,21 @@
     });
   };
 
+  const createErrorMessage = (errorMessage) => {
+    const node = document.createElement(`div`);
+    node.classList.add(`server-error`);
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement(`afterbegin`, node);
+  };
+
   window.util = {
     isEscEvent,
     isEnterEvent,
     getRandomInteger,
     getRandomItem,
     colorize,
+    createErrorMessage
   };
 })();
 

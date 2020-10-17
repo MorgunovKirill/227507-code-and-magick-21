@@ -1,10 +1,24 @@
 'use strict';
 
 (function () {
-  const WIZARD_COATS = [`rgb (101, 137, 164)`, `rgb(241, 43, 107)`, `rgb(146, 100, 161)`, `rgb(56, 159, 117)`, `rgb(215, 210, 55)`, `rgb(0, 0, 0)`];
-  const WIZARD_EYES = [`black`, `red`, `blue`, `yellow`, `green`];
+  const WIZARD_COATS = [ `rgb(146, 100, 161)`,
+    `rgb(215, 210, 55)`,
+    `rgb(241, 43, 107)`,
+    `rgb(101, 137, 164)`,
+    `rgb(0, 0, 0)`,
+    `rgb(215, 210, 55)`,
+    `rgb(56, 159, 117)`,
+    `rgb(241, 43, 107)`];
+  const WIZARD_EYES = [
+    `red`,
+    `orange`,
+    `yellow`,
+    `green`,
+    `lightblue`,
+    `blue`,
+    `purple`];
   const WIZARD_FIREBALL_COLORS = [`#ee4830`, `#30a8ee`, `#5ce6c0`, `#e848d5`, `#e6e848`];
-  const MAX_SIMILAR_WIZARD_COUNT = 4;
+
 
   const setup = document.querySelector(`.setup`);
   const setupWizard = setup.querySelector(`.setup-wizard`);
@@ -15,7 +29,7 @@
   const setupFireball = setup.querySelector(`.setup-fireball-wrap`);
   const setupFireballInput = setup.querySelector(`input[name=fireball-color]`);
 
-  const similarListElement = document.querySelector(`.setup-similar-list`);
+
   const similarWizardTemplate = document.querySelector(`#similar-wizard-template`)
   .content
   .querySelector(`.setup-similar-item`);
@@ -31,28 +45,6 @@
     return wizardElement;
   };
 
-  const successHandler = (wizards) => {
-    const fragment = document.createDocumentFragment();
-
-    for (let i = 0; i < MAX_SIMILAR_WIZARD_COUNT; i++) {
-      fragment.appendChild(renderWizard(wizards[i]));
-    }
-
-    similarListElement.appendChild(fragment);
-    setup.querySelector(`.setup-similar`).classList.remove(`hidden`);
-  };
-
-
-  const errorHandler = function (errorMessage) {
-    const node = document.createElement(`div`);
-    node.classList.add(`server-error`);
-
-    node.textContent = errorMessage;
-    document.body.insertAdjacentElement(`afterbegin`, node);
-  };
-
-  window.backend.load(successHandler, errorHandler);
-
 
   window.util.colorize(setupWizardCoat, setupWisardCoatInput, WIZARD_COATS);
 
@@ -60,4 +52,7 @@
 
   window.util.colorize(setupFireball, setupFireballInput, WIZARD_FIREBALL_COLORS);
 
+  window.setup = {
+    renderWizard,
+  };
 })();
