@@ -26,18 +26,6 @@
     return arr[getRandomInteger(0, arr.length - 1)];
   };
 
-  const colorize = (element, input, colors) => {
-    element.addEventListener(`click`, function () {
-      const color = getRandomItem(colors);
-      if (element.tagName.toLowerCase() === `div`) {
-        element.style.backgroundColor = color;
-      } else {
-        element.style.fill = color;
-      }
-      input.value = color;
-    });
-  };
-
   const createErrorMessage = (errorMessage) => {
     const node = document.createElement(`div`);
     node.classList.add(`server-error`);
@@ -51,7 +39,6 @@
     isEnterEvent,
     getRandomInteger,
     getRandomItem,
-    colorize,
     createErrorMessage
   };
 })();

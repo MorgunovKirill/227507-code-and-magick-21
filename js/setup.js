@@ -1,58 +1,64 @@
 'use strict';
 
 (function () {
-  const WIZARD_COATS = [ `rgb(146, 100, 161)`,
-    `rgb(215, 210, 55)`,
-    `rgb(241, 43, 107)`,
-    `rgb(101, 137, 164)`,
-    `rgb(0, 0, 0)`,
-    `rgb(215, 210, 55)`,
-    `rgb(56, 159, 117)`,
-    `rgb(241, 43, 107)`];
-  const WIZARD_EYES = [
-    `red`,
-    `orange`,
-    `yellow`,
-    `green`,
-    `lightblue`,
-    `blue`,
-    `purple`];
-  const WIZARD_FIREBALL_COLORS = [`#ee4830`, `#30a8ee`, `#5ce6c0`, `#e848d5`, `#e6e848`];
+  let coatColor = `rgb(101, 137, 164)`;
+  let eyesColor = `black`;
+  let wizards = [];
 
+  const getRank = function (wizard) {
 
-  const setup = document.querySelector(`.setup`);
-  const setupWizard = setup.querySelector(`.setup-wizard`);
-  const setupWizardCoat = setupWizard.querySelector(`.wizard-coat`);
-  const setupWisardCoatInput = setup.querySelector(`input[name=coat-color]`);
-  const setupWizardEyes = setupWizard.querySelector(`.wizard-eyes`);
-  const setupWisardEyesInput = setup.querySelector(`input[name=eyes-color]`);
-  const setupFireball = setup.querySelector(`.setup-fireball-wrap`);
-  const setupFireballInput = setup.querySelector(`input[name=fireball-color]`);
+    let rank = 0;
 
+    if (wizard.colorCoat === coatColor) {
+      rank += 2;
+    }
+    if (wizard.colorEyes === eyesColor) {
+      rank += 1;
+    }
 
-  const similarWizardTemplate = document.querySelector(`#similar-wizard-template`)
-  .content
-  .querySelector(`.setup-similar-item`);
+    return rank;
+  };
 
+  const namesComparator = function (left, right) {
+    if (left > right) {
+      return 1;
+    } else if (left < right) {
+      return -1;
+    } else {
+      return 0;
+    }
+  };
 
-  const renderWizard = function (wizard) {
-    let wizardElement = similarWizardTemplate.cloneNode(true);
+  const updateWizards = () => {
+    window.render.render(wizards.sort(function (left, right) {
+      let rankDiff = getRank(right) - getRank(left);
+      if (rankDiff === 0) {
+        rankDiff = namesComparator(left.name, right.name);
+      }
+      return rankDiff;
+    }));
+  };
 
-    wizardElement.querySelector(`.setup-similar-label`).textContent = wizard.name;
-    wizardElement.querySelector(`.wizard-coat`).style.fill = wizard.colorCoat;
-    wizardElement.querySelector(`.wizard-eyes`).style.fill = wizard.colorEyes;
+  window.wizard.setEyesChangeHandler(function (color) {
+    eyesColor = color;
+    updateWizards();
+  });
 
-    return wizardElement;
+  window.wizard.setCoatChangeHandler(function (color) {
+    coatColor = color;
+    updateWizards();
+  });
+
+  const successHandler = (data) => {
+    wizards = data;
+    updateWizards();
   };
 
 
-  window.util.colorize(setupWizardCoat, setupWisardCoatInput, WIZARD_COATS);
-
-  window.util.colorize(setupWizardEyes, setupWisardEyesInput, WIZARD_EYES);
-
-  window.util.colorize(setupFireball, setupFireballInput, WIZARD_FIREBALL_COLORS);
-
-  window.setup = {
-    renderWizard,
+  const errorHandler = function (errorMessage) {
+    window.util.createErrorMessage(errorMessage);
   };
+
+
+  window.backend.load(successHandler, errorHandler);
 })();
