@@ -1,12 +1,13 @@
 'use strict';
 
 (function () {
-  const setupDialogElement = window.util.setup;
+  const setupDialogElement = document.querySelector(`.setup`);
   const setupOpen = document.querySelector(`.setup-open`);
   const setupClose = setupDialogElement.querySelector(`.setup-close`);
   const setupName = setupDialogElement.querySelector(`.setup-user-name`);
 
   const dialogHandle = setupDialogElement.querySelector(`.upload`);
+  const form = setupDialogElement.querySelector(`.setup-wizard-form`);
   let initialCoords;
 
   const onPopupEscPress = function (evt) {
@@ -106,6 +107,14 @@
 
     document.addEventListener(`mousemove`, onMouseMove);
     document.addEventListener(`mouseup`, onMouseUp);
+  });
+
+
+  form.addEventListener(`submit`, function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(form), function () {
+      setupDialogElement.classList.add(`hidden`);
+    });
   });
 
 })();
