@@ -41,12 +41,12 @@
 
   window.wizard.setEyesChangeHandler(function (color) {
     eyesColor = color;
-    updateWizards();
+    window.util.debounce(updateWizards);
   });
 
   window.wizard.setCoatChangeHandler(function (color) {
     coatColor = color;
-    updateWizards();
+    window.util.debounce(updateWizards);
   });
 
   const successHandler = (data) => {
