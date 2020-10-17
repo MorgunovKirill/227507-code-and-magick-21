@@ -112,7 +112,7 @@
 
   form.addEventListener(`submit`, function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(form), function (response) {
+    window.backend.save(new FormData(form), function () {
       setupDialogElement.classList.add(`hidden`);
     });
   });
