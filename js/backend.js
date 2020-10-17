@@ -2,10 +2,12 @@
 (function () {
   const URL = `https://21.javascript.pages.academy/code-and-magick`;
   const URL_DATA = `https://21.javascript.pages.academy/code-and-magick/data`;
+  const TIMEOUT_IN_MS = 10000;
+
   const StatusCode = {
     OK: 200
   };
-  const TIMEOUT_IN_MS = 10000;
+
 
   const statusHandler = (xhr, onLoad, onError) => {
     xhr.addEventListener(`load`, function () {
@@ -19,30 +21,34 @@
     xhr.addEventListener(`error`, function () {
       onError(`Произошла ошибка соединения`);
     });
+
     xhr.addEventListener(`timeout`, function () {
       onError(`Запрос не успел выполниться за ` + xhr.timeout + `мс`);
     });
-
-    xhr.timeout = TIMEOUT_IN_MS;
   };
 
-  window.save = function (data, onLoad, onError) {
+  const save = function (data, onLoad, onError) {
     const xhr = new XMLHttpRequest();
     xhr.responseType = `json`;
+    xhr.open(`POST`, URL);
+    xhr.timeout = TIMEOUT_IN_MS;
 
     statusHandler(xhr, onLoad, onError);
-
-    xhr.open(`POST`, URL);
     xhr.send(data);
   };
 
-  window.load = function (onLoad, onError) {
+  const load = function (onLoad, onError) {
     const xhr = new XMLHttpRequest();
     xhr.responseType = `json`;
+    xhr.open(`GET`, URL_DATA);
+    xhr.timeout = TIMEOUT_IN_MS;
 
     statusHandler(xhr, onLoad, onError);
-
-    xhr.open(`GET`, URL_DATA);
     xhr.send();
+  };
+
+  window.backend = {
+    save,
+    load
   };
 })();

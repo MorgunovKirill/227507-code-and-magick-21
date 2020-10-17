@@ -54,7 +54,7 @@
     document.body.insertAdjacentElement(`afterbegin`, node);
   };
 
-  window.load(successHandler, errorHandler);
+  window.backend.load(successHandler, errorHandler);
 
 
   window.util.colorize(setupWizardCoat, setupWisardCoatInput, WIZARD_COATS);
