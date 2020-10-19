@@ -114,7 +114,7 @@
     evt.preventDefault();
     window.backend.save(new FormData(form), function () {
       setupDialogElement.classList.add(`hidden`);
-    }, function () {});
+    });
   });
 
 })();

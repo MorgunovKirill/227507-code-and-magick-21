@@ -1,8 +1,11 @@
 'use strict';
 
 (function () {
-  let coatColor = `rgb(101, 137, 164)`;
-  let eyesColor = `black`;
+  const DEFAULT_WIZARD_COAT = `rgb(101, 137, 164)`;
+  const DEFAULT_WIZARD_EYES = `black`;
+
+  let coatColor = DEFAULT_WIZARD_COAT;
+  let eyesColor = DEFAULT_WIZARD_EYES;
   let wizards = [];
 
   const getRank = function (wizard) {
@@ -30,7 +33,7 @@
   };
 
   const updateWizards = () => {
-    window.render.render(wizards.sort(function (left, right) {
+    window.render.renderFragment(wizards.sort(function (left, right) {
       let rankDiff = getRank(right) - getRank(left);
       if (rankDiff === 0) {
         rankDiff = namesComparator(left.name, right.name);
@@ -50,7 +53,7 @@
   });
 
   const successHandler = (data) => {
-    wizards = data;
+    wizards = [...data];
     updateWizards();
   };
 
