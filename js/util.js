@@ -3,6 +3,8 @@
 (function () {
   const ESC_KEYCODE = 27;
   const ENTER_KEYCODE = 13;
+  const DEBOUNCE_INTERVAL = 300; // ms
+  let lastTimeout;
 
   const isEscEvent = (evt, action) => {
     if (evt.keyCode === ESC_KEYCODE) {
@@ -26,16 +28,19 @@
     return arr[getRandomInteger(0, arr.length - 1)];
   };
 
-  const colorize = (element, input, colors) => {
-    element.addEventListener(`click`, function () {
-      const color = getRandomItem(colors);
-      if (element.tagName.toLowerCase() === `div`) {
-        element.style.backgroundColor = color;
-      } else {
-        element.style.fill = color;
-      }
-      input.value = color;
-    });
+  const createErrorMessage = (errorMessage) => {
+    const node = document.createElement(`div`);
+    node.classList.add(`server-error`);
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement(`afterbegin`, node);
+  };
+
+  const debounce = (cb) => {
+    if (lastTimeout) {
+      window.clearTimeout(lastTimeout);
+    }
+    lastTimeout = window.setTimeout(cb, DEBOUNCE_INTERVAL);
   };
 
   window.util = {
@@ -43,7 +48,8 @@
     isEnterEvent,
     getRandomInteger,
     getRandomItem,
-    colorize,
+    createErrorMessage,
+    debounce
   };
 })();
 
