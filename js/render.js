@@ -1,6 +1,5 @@
 'use strict';
 
-
 const MAX_SIMILAR_WIZARD_COUNT = 4;
 const setup = document.querySelector(`.setup`);
 const similarWizardTemplate = document.querySelector(`#similar-wizard-template`)

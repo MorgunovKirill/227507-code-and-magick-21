@@ -1,6 +1,5 @@
 'use strict';
 
-
 const DEFAULT_WIZARD_COAT = `rgb(101, 137, 164)`;
 const DEFAULT_WIZARD_EYES = `black`;
 
@@ -61,7 +60,6 @@ const successHandler = (data) => {
 const errorHandler = function (errorMessage) {
   window.util.createErrorMessage(errorMessage);
 };
-
 
 window.backend.load(successHandler, errorHandler);
 

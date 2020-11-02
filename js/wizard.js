@@ -1,6 +1,5 @@
 'use strict';
 
-
 const WIZARD_COATS = [
   `rgb(146, 100, 161)`,
   `rgb(215, 210, 55)`,

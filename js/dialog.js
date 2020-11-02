@@ -1,6 +1,5 @@
 'use strict';
 
-
 const setupDialogElement = document.querySelector(`.setup`);
 const setupOpen = document.querySelector(`.setup-open`);
 const setupClose = setupDialogElement.querySelector(`.setup-close`);

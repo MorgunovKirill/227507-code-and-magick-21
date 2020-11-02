@@ -1,7 +1,7 @@
 'use strict';
 
-const URL = `https://21.javascript.pages.academy/code-and-magick`;
-const URL_DATA = `https://21.javascript.pages.academy/code-and-magick/data`;
+const URL_SEND = `https://21.javascript.pages.academy/code-and-magick`;
+const URL_GET = `https://21.javascript.pages.academy/code-and-magick/data`;
 const TIMEOUT_IN_MS = 10000;
 
 const StatusCode = {
@@ -30,7 +30,7 @@ const statusHandler = (xhr, onLoad, onError) => {
 const save = function (data, onLoad, onError) {
   const xhr = new XMLHttpRequest();
   xhr.responseType = `json`;
-  xhr.open(`POST`, URL);
+  xhr.open(`POST`, URL_SEND);
   xhr.timeout = TIMEOUT_IN_MS;
 
   statusHandler(xhr, onLoad, onError);
@@ -40,7 +40,7 @@ const save = function (data, onLoad, onError) {
 const load = function (onLoad, onError) {
   const xhr = new XMLHttpRequest();
   xhr.responseType = `json`;
-  xhr.open(`GET`, URL_DATA);
+  xhr.open(`GET`, URL_GET);
   xhr.timeout = TIMEOUT_IN_MS;
 
   statusHandler(xhr, onLoad, onError);

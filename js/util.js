@@ -1,6 +1,5 @@
 'use strict';
 
-
 const ESC_KEYCODE = 27;
 const ENTER_KEYCODE = 13;
 const DEBOUNCE_INTERVAL = 300; // ms
